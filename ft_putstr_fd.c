@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:18:31 by llemmel           #+#    #+#             */
-/*   Updated: 2024/10/18 11:44:06 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/10/21 11:47:22 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	if (fd >= 0 && s != NULL)
+	if (fd > 0 && s != NULL)
 		while (*s != '\0')
-			write(fd, s++, 1);
+			if (write(fd, s++, 1) != 1)
+				return ;
 }

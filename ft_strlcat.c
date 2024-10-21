@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 14:41:38 by llemmel           #+#    #+#             */
-/*   Updated: 2024/10/18 17:57:36 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/10/21 11:41:20 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 	i = 0;
 	src_len = ft_strlen(src);
 	if (size == 0)
-		return (size + src_len);
+		// retourner seulement src_len
+		return (src_len);
 	dst_len = ft_strlen(dst);
 	if (size <= dst_len || size == 0)
 		return (size + src_len);

@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:54:04 by llemmel           #+#    #+#             */
-/*   Updated: 2024/10/19 17:08:38 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/10/21 11:29:21 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	lst = lst->next;
 	while (lst != NULL)
 	{
+		// mettre le content dans une variable a part au cas ou f crash
 		new_element = ft_lstnew(f(lst->content));
 		if (!new_element)
 		{

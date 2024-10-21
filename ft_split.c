@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 10:21:18 by llemmel           #+#    #+#             */
-/*   Updated: 2024/10/18 11:46:39 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/10/21 11:38:56 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,12 @@ static size_t	count_word(char const *str, char c)
 
 static char	*ft_strcdup(char const *src, char c, size_t *len)
 {
-	size_t	size;
 	char	*dest;
 	size_t	i;
 
-	size = 0;
 	i = 0;
-	dest = (char *)malloc(sizeof(char) * (size + 1));
+	// proble de taille de chaine a malloc
+	dest = (char *)malloc(sizeof(char) * (ft_strlen(src) + 1));
 	if (dest == NULL)
 		return (NULL);
 	while (src[i] != '\0' && src[i] != c)
@@ -74,6 +73,7 @@ char	**ft_split(char const *s, char c)
 	word = 0;
 	if (s == NULL)
 		return (NULL);
+	// stocker count_word
 	strs = (char **)malloc(sizeof(char *) * (count_word(s, c) + 1));
 	if (strs == NULL)
 		return (NULL);
