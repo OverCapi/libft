@@ -70,6 +70,10 @@ bonus: $(OBJECT_FILE) $(OBJECT_FILE_BONUS)
 		$(AR) $(NAME) $(OBJECT_FILE) $(OBJECT_FILE_BONUS)
 		$(LIB) $(NAME)
 
+so:
+	$(CC) -nostartfiles -fPIC $(CFLAGS) $(SRCS_FILE) $(SRCS_FILE_BONUS)
+	gcc -nostartfiles -shared -o libft.so $(OBJECT_FILE) $(OBJECT_FILE_BONUS)
+
 clean:
 	rm -f $(OBJECT_FILE) $(OBJECT_FILE_BONUS)
 

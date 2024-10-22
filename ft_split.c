@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 10:21:18 by llemmel           #+#    #+#             */
-/*   Updated: 2024/10/21 11:38:56 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/10/21 15:48:47 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,13 @@ static char	*ft_strcdup(char const *src, char c, size_t *len)
 {
 	char	*dest;
 	size_t	i;
+	size_t	size;
 
 	i = 0;
-	// proble de taille de chaine a malloc
-	dest = (char *)malloc(sizeof(char) * (ft_strlen(src) + 1));
+	size = 0;
+	while (src && src[size] != '\0' && src[size] != c)
+		size++;
+	dest = (char *)malloc(sizeof(char) * (size + 1));
 	if (dest == NULL)
 		return (NULL);
 	while (src[i] != '\0' && src[i] != c)
@@ -73,18 +76,18 @@ char	**ft_split(char const *s, char c)
 	word = 0;
 	if (s == NULL)
 		return (NULL);
-	// stocker count_word
 	strs = (char **)malloc(sizeof(char *) * (count_word(s, c) + 1));
 	if (strs == NULL)
 		return (NULL);
-	while (word < count_word(s, c))
+	while (s[i] != '\0')
 	{
 		while (s[i] != '\0' && s[i] == c)
 			i++;
-		strs[word] = ft_strcdup(s + i, c, &i);
-		if (strs[word] == NULL)
-			return (free_split(strs, word));
-		word++;
+		if (!s[i])
+			break ;
+		strs[word++] = ft_strcdup(s + i, c, &i);
+		if (strs[word - 1] == NULL)
+			return (free_split(strs, word - 1));
 		if (s[i] != '\0')
 			i++;
 	}

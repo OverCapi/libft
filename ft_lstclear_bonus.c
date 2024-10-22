@@ -6,22 +6,23 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:24:56 by llemmel           #+#    #+#             */
-/*   Updated: 2024/10/21 11:28:13 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/10/21 17:07:19 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-// recursion peut engendre un stack overflow
+
 void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	if (!lst || !del)
+	t_list	*tmp;
+
+	if (!lst || !(*lst))
 		return ;
-	if (!(*lst)->next)
-		ft_lstdelone(*lst, del);
-	else
+	while (*lst)
 	{
-		ft_lstclear(&(*lst)->next, del);
+		tmp = (*lst)->next;
 		ft_lstdelone(*lst, del);
+		*lst = tmp;
 	}
 	*lst = NULL;
 }

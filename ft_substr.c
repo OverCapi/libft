@@ -6,13 +6,12 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 08:56:05 by llemmel           #+#    #+#             */
-/*   Updated: 2024/10/21 11:43:05 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/10/21 17:12:41 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// PB chaine vide + len = 0
 char	*ft_substr(const char *s, unsigned int start, size_t len)
 {
 	char	*dest;
@@ -21,10 +20,12 @@ char	*ft_substr(const char *s, unsigned int start, size_t len)
 
 	i = start;
 	if (s == NULL)
-		return (NULL);
-	len_s = ft_strlen(s);
-	if (start >= len_s)
 		return (ft_strdup(""));
+	len_s = ft_strlen(s);
+	if (start > len_s)
+		return (ft_strdup(""));
+	if (len_s - start < len)
+		len = len_s - start;
 	dest = (char *)malloc((len + 1) * sizeof(char));
 	if (dest == NULL)
 		return (NULL);

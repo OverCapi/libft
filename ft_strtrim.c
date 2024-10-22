@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 09:41:00 by llemmel           #+#    #+#             */
-/*   Updated: 2024/10/21 11:46:08 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/10/21 17:12:31 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static int	is_in_set(char c, char const *set)
 	return (ft_strchr(set, c) != NULL);
 }
 
-// PB va trop loin quand c == '\0'
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	size_t	start;
