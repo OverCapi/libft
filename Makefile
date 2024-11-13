@@ -91,4 +91,4 @@ fclean: clean
 
 re: fclean $(NAME)
 
-.PHONY: all $(NAME) bonus clean fclean re
+.PHONY: all bonus clean fclean re
