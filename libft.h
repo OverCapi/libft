@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 18:14:47 by llemmel           #+#    #+#             */
-/*   Updated: 2024/11/17 05:54:32 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/11/17 06:00:15 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 /* CONVERTER_FUNCTION */
+int		ft_atoi_safe(const char *nptr);
 int		ft_atoi(const char *nptr);
 char	*ft_itoa(int n);
 
