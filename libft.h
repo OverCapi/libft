@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 18:14:47 by llemmel           #+#    #+#             */
-/*   Updated: 2024/11/13 14:18:39 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/11/17 05:54:32 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_list
 }					t_list;
 
 /* CHAR_FUNCTION */
+int		ft_iswhite_space(int c);
 int		ft_isalnum(int c);
 int		ft_isalpha(int c);
 int		ft_isascii(int c);
