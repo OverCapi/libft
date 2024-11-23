@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 18:14:47 by llemmel           #+#    #+#             */
-/*   Updated: 2024/11/17 06:00:15 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/11/23 13:43:34 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+
+# include "gnl/get_next_line_bonus.h"
+# include "ft_printf/ft_printf.h"
 
 typedef struct s_list
 {
