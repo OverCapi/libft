@@ -6,6 +6,7 @@ WRITE_PATH = ./write
 LINKED_LIST_PATH = ./linked_list
 FT_PRINTF = ./ft_printf
 GNL_PATH = ./gnl
+EXIT_PATH = ./exit
 
 SRCS_CHAR_FUNCTION =			$(CHAR_PATH)/ft_iswhite_space.c \
 								$(CHAR_PATH)/ft_isalnum.c \
@@ -64,6 +65,8 @@ SRCS_FT_PRINTF = 				$(FT_PRINTF)/converter.c \
 
 SRCS_GNL_FUNCTION =				$(GNL_PATH)/get_next_line_bonus.c \
 								$(GNL_PATH)/get_next_line_utils_bonus.c
+
+SRCS_EIXT_FUNCTION =			$(EXIT_PATH)/ft_exit.c
 
 SRCS_FILE =						$(SRCS_CHAR_FUNCTION) \
 								$(SRCS_MEM_FUNCTION) \
