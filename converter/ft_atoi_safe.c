@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi_safe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 05:52:14 by llemmel           #+#    #+#             */
-/*   Updated: 2024/11/27 15:13:11 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/12/24 15:31:01 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-static int	check_overflow(long long int nb, int sign)
+static int	check_overflow(long int nb, int sign)
 {
-	if (sign == 1 && nb > 2147483647)
-		return (-1);
-	else if (sign == -1 && (nb < -2147483648 || nb >= 2147483647))
-		return (-1);
-	return (0);
+	if (sign == 1 && nb > INT_MAX)
+		return (0);
+	else if (sign == -1 && (nb < INT_MIN || nb >= INT_MAX))
+		return (0);
+	return (1);
 }
 
 int	ft_atoi(const char *nptr)
@@ -40,7 +40,7 @@ int	ft_atoi(const char *nptr)
 	}
 	while (ft_isdigit(nptr[i]) == 1)
 	{
-		if (check_overflow((long long int)nb * 10 + nptr[i] - '0', sign) == -1)
+		if (!check_overflow((long int)nb * 10 + nptr[i] - '0', sign))
 			return (0);
 		nb = nb * 10 + nptr[i] - '0';
 		i++;
