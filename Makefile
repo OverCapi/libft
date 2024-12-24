@@ -1,13 +1,21 @@
-CHAR_PATH = ./char
-MEM_PATH = ./mem
-CONVERTER_PATH = ./converter
-STR_PATH = ./str
-WRITE_PATH = ./write
-LINKED_LIST_PATH = ./linked_list
-FT_PRINTF = ./ft_printf
-GNL_PATH = ./gnl
-EXIT_PATH = ./exit
+###					COLOR DEFINITION						###
+GREEN=	\033[1;32m
+YELLOW=	\033[1;33m
+RED=	\033[1;31m
+RESET=	\033[0m
 
+###					PATH FOLDER DEFINITION					###
+CHAR_PATH =			./char
+MEM_PATH =			./mem
+CONVERTER_PATH =	./converter
+STR_PATH =			./str
+WRITE_PATH =		./write
+LINKED_LIST_PATH =	./linked_list
+FT_PRINTF =			./ft_printf
+GNL_PATH =			./gnl
+EXIT_PATH =			./exit
+
+###					SRCS FILE DEFINITION					###
 SRCS_CHAR_FUNCTION =			$(CHAR_PATH)/ft_iswhite_space.c \
 								$(CHAR_PATH)/ft_isalnum.c \
 								$(CHAR_PATH)/ft_isalpha.c \
@@ -74,11 +82,9 @@ SRCS_FILE =						$(SRCS_CHAR_FUNCTION) \
 								$(SRCS_CONVERTER_FUNCTION) \
 								$(SRCS_WRITE_FUNCTION) \
 								$(SRCS_FT_PRINTF) \
-								$(SRCS_GNL_FUNCTION)
-
-OBJECT_FILE = $(SRCS_FILE:.c=.o)
-
-OBJECT_FILE_BONUS = $(SRCS_LINKED_LIST_FUNCTION:.c=.o)
+								$(SRCS_GNL_FUNCTION) \
+								$(SRCS_LINKED_LIST_FUNCTION)
+OBJECT_FILE = 					$(SRCS_FILE:.c=.o)
 
 CC = cc
 
@@ -91,20 +97,22 @@ NAME = libft.a
 all: $(NAME)
 
 .c.o:
-	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
+	@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
+	@echo "[$(GREEN)OK$(RESET)] $< compiled"
 
 $(NAME): $(OBJECT_FILE)
-		$(AR) $(NAME) $(OBJECT_FILE)
-
-bonus: $(OBJECT_FILE) $(OBJECT_FILE_BONUS)
-		$(AR) $(NAME) $(OBJECT_FILE) $(OBJECT_FILE_BONUS)
+		@echo "$(YELLOW)Creating archive: $(NAME)$(RESET)"
+		@$(AR) $(NAME) $(OBJECT_FILE)
+		@echo "$(GREEN)Archive created: $(NAME)$(RESET)"
 
 clean:
-	rm -f $(OBJECT_FILE) $(OBJECT_FILE_BONUS)
+	@echo "$(RED)Cleaning object files$(RESET)"
+	@rm -f $(OBJECT_FILE)
 
 fclean: clean
-	rm -f $(NAME)
+	@echo "$(RED)Removing archive $(NAME)$(RESET)"
+	@rm -f $(NAME)
 
 re: fclean $(NAME)
 
-.PHONY: all bonus clean fclean re
+.PHONY: all clean fclean re
