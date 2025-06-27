@@ -5,15 +5,15 @@ RED=	\033[1;31m
 RESET=	\033[0m
 
 ###					PATH FOLDER DEFINITION					###
-CHAR_PATH =			./char
-MEM_PATH =			./mem
-CONVERTER_PATH =	./converter
-STR_PATH =			./str
-WRITE_PATH =		./write
-LINKED_LIST_PATH =	./linked_list
-FT_PRINTF =			./ft_printf
-GNL_PATH =			./gnl
-EXIT_PATH =			./exit
+CHAR_PATH =			char
+MEM_PATH =			mem
+CONVERTER_PATH =	converter
+STR_PATH =			str
+WRITE_PATH =		write
+LINKED_LIST_PATH =	linked_list
+FT_PRINTF =			ft_printf
+GNL_PATH =			gnl
+EXIT_PATH =			exit
 
 ###					SRCS FILE DEFINITION					###
 SRCS_CHAR_FUNCTION =			$(CHAR_PATH)/ft_iswhite_space.c \
@@ -90,7 +90,7 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
 
-AR = ar rcs
+AR = ar -rcs
 
 NAME = libft.a
 

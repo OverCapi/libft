@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: capi <capi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 18:14:47 by llemmel           #+#    #+#             */
-/*   Updated: 2024/12/24 15:29:25 by marvin           ###   ########.fr       */
+/*   Updated: 2025/06/27 20:50:37 by capi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ typedef struct s_list
 
 /* CHAR_FUNCTION */
 int		ft_iswhite_space(int c);
-int		ft_isalnum(int c);
-int		ft_isalpha(int c);
+extern int		ft_isalnum(int c);
+extern int		ft_isalpha(int c);
 int		ft_isascii(int c);
-int		ft_isdigit(int c);
+extern int		ft_isdigit(int c);
 int		ft_isprint(int c);
 int		ft_tolower(int c);
 int		ft_toupper(int c);

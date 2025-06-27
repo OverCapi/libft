@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: capi <capi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 09:23:40 by llemmel           #+#    #+#             */
-/*   Updated: 2024/11/04 14:25:00 by llemmel          ###   ########.fr       */
+/*   Updated: 2025/06/27 21:26:27 by capi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static size_t	ft_converter(va_list ptr, char specifier)
 	else if (specifier == 'p')
 		return (ptr_converter((size_t)va_arg(ptr, void *)));
 	else if (specifier == 'd' || specifier == 'i')
-		return (dec_converter(va_arg(ptr, unsigned int), 1));
+		return (dec_converter(va_arg(ptr, int), 1));
 	else if (specifier == 'u')
 		return (dec_converter(va_arg(ptr, unsigned int), 0));
 	else if (specifier == 'x')
