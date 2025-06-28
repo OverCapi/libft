@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   converter.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: capi <capi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 10:45:11 by llemmel           #+#    #+#             */
-/*   Updated: 2024/11/01 15:14:13 by llemmel          ###   ########.fr       */
+/*   Updated: 2025/06/28 17:16:26 by capi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	char_converter(unsigned char c)
 
 int	str_converter(char *str)
 {
-	if (str == NULL)
+	if (!str)
 	{
 		ft_putstr_fd("(null)", 1);
 		return (6);

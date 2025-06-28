@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: capi <capi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 15:18:52 by llemmel           #+#    #+#             */
-/*   Updated: 2024/11/23 13:34:30 by llemmel          ###   ########.fr       */
+/*   Updated: 2025/06/28 16:26:17 by capi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ char	*get_next_line(int fd)
 			return (line);
 	}
 	ro = read(fd, buffer[fd], BUFFER_SIZE);
-	buffer[fd][ro] = '\0';
 	if (ro == 0 && ft_strlen_gnl(line, '\0') != 0)
 		return (line);
 	if (ro == -1 || (ft_strlen_gnl(line, '\0') == 0 && ro == 0))
 		return (free(line), NULL);
+	buffer[fd][ro] = '\0';
 	return (read_and_join(&ro, line, buffer[fd], fd));
 }

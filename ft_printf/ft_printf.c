@@ -6,7 +6,7 @@
 /*   By: capi <capi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 09:23:40 by llemmel           #+#    #+#             */
-/*   Updated: 2025/06/27 21:26:27 by capi             ###   ########.fr       */
+/*   Updated: 2025/06/28 17:16:34 by capi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,3 +85,40 @@ int	ft_printf(const char *format, ...)
 	va_end(ptr);
 	return (len);
 }
+
+// int	ft_printf(const char *format, ...)
+// {
+// 	size_t	i;
+// 	size_t	len;
+// 	size_t	write_size;
+// 	char	*pos;
+// 	va_list	ptr;
+
+// 	if (!format)
+// 		return (-1);
+// 	va_start(ptr, format);
+// 	i = 0;
+// 	len = 0;
+// 	while (format[i])
+// 	{
+// 		pos = ft_strchr(format + i, '%');
+// 		if (pos)
+// 		{
+// 			write_size = pos - (format + i);
+// 			if (write_size && write(1, format + i, write_size) == -1)
+// 				return (va_end(ptr), -1);
+// 			len += write_size;
+// 			if (check_convert(ptr, pos[1], &i, &len) != 0)
+// 				return (va_end(ptr), -1);
+// 		}
+// 		else
+// 		{
+// 			ft_putstr_fd((char *)(format + i), 1);
+// 			write_size = ft_strlen(format + i);
+// 			len += write_size;
+// 		}
+// 		i += write_size;
+// 	}
+// 	va_end(ptr);
+// 	return (len);
+// }
