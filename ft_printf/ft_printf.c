@@ -6,7 +6,7 @@
 /*   By: capi <capi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 09:23:40 by llemmel           #+#    #+#             */
-/*   Updated: 2025/06/29 16:09:39 by capi             ###   ########.fr       */
+/*   Updated: 2025/06/29 16:24:36 by capi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static size_t	ft_converter(va_list *ptr, char specifier)
 	return (len);
 }
 
-static int	check_convert(va_list *ptr, char specifier, char ** format, size_t *len)
+static int	check_convert(va_list *ptr, char specifier, char **format, size_t *len)
 {
 	if (!specifier)
 		return (-1);
@@ -57,6 +57,19 @@ static int	check_convert(va_list *ptr, char specifier, char ** format, size_t *l
 	return (0);
 }
 
+static int	do_convert(va_list *ptr, char **format, size_t *len, char *pos)
+{
+	size_t	write_size;
+
+	write_size = pos - *format;
+	if (write_size && write(1, *format, write_size) == -1)
+		return (-1);
+	if (check_convert(ptr, pos[1], format, len) != 0)
+		return (-1);
+	(*format) += write_size + 1;
+	return (0);
+}
+
 int	ft_printf(const char *format, ...)
 {
 	size_t	len;
@@ -71,23 +84,15 @@ int	ft_printf(const char *format, ...)
 	while (*format)
 	{
 		pos = ft_strchr(format, '%');
-		if (pos)
-		{
-			write_size = pos - (format);
-			if (write_size && write(1, format, write_size) == -1)
-				return (va_end(ptr), -1);
-			len += write_size;
-			if (check_convert(&ptr, pos[1], (char **)&format, &len) != 0)
-				return (va_end(ptr), -1);
-			format++;
-		}
+		if (pos && do_convert(&ptr, (char **)(&format), &len, pos) == -1)
+			return (va_end(ptr), -1);
 		else
 		{
 			ft_putstr_fd((char *)(format), 1);
 			write_size = ft_strlen(format);
+			format += write_size;
 			len += write_size;
 		}
-		format += write_size;
 	}
 	va_end(ptr);
 	return (len);
