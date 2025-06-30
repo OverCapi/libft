@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi_safe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: capi <capi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 05:52:14 by llemmel           #+#    #+#             */
-/*   Updated: 2024/12/24 15:31:01 by marvin           ###   ########.fr       */
+/*   Updated: 2025/06/30 14:04:55 by capi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	check_overflow(long int nb, int sign)
 	return (1);
 }
 
-int	ft_atoi(const char *nptr)
+int	ft_atoi_safe(const char *nptr)
 {
 	int		nb;
 	int		sign;

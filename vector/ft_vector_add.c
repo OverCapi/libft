@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
+/*   ft_vector_add.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: capi <capi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/19 12:24:56 by llemmel           #+#    #+#             */
-/*   Updated: 2025/06/30 14:04:55 by capi             ###   ########.fr       */
+/*   Created: 2025/06/30 14:08:38 by capi              #+#    #+#             */
+/*   Updated: 2025/06/30 14:33:02 by capi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+void	ft_vector_add(t_vector *vector, void *data, size_t data_size)
 {
-	t_list	*tmp;
+	void	*index;
 
-	if (!lst || !(*lst) || !del)
+	if (!vector || !data)
 		return ;
-	while (*lst)
+	if (vector->max_size < vector->len + data_size)
 	{
-		tmp = (*lst)->next;
-		ft_lstdelone(*lst, del);
-		*lst = tmp;
+		ft_vector_reserve(vector, vector->max_size * 2 + data_size);
+		printf("Alloc, new size: %zu\n", vector->max_size);
+		if (vector->max_size < vector->len + data_size)
+			return ;
 	}
-	*lst = NULL;
+	index = vector->data + vector->len;
+	ft_memcpy(index, data, data_size);
+	vector->len += data_size;
 }

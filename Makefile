@@ -11,6 +11,7 @@ CONVERTER_PATH =	converter
 STR_PATH =			str
 WRITE_PATH =		write
 LINKED_LIST_PATH =	linked_list
+VECTOR_PATH =		vector
 FT_PRINTF =			ft_printf
 GNL_PATH =			gnl
 EXIT_PATH =			exit
@@ -67,6 +68,11 @@ SRCS_LINKED_LIST_FUNCTION =		$(LINKED_LIST_PATH)/ft_lstnew_bonus.c \
 								$(LINKED_LIST_PATH)/ft_lstiter_bonus.c \
 								$(LINKED_LIST_PATH)/ft_lstmap_bonus.c
 
+SRCS_VECTOR_FUNCTION =			$(VECTOR_PATH)/ft_vector_new.c \
+								$(VECTOR_PATH)/ft_vector_reserve.c \
+								$(VECTOR_PATH)/ft_vector_free.c \
+								$(VECTOR_PATH)/ft_vector_add.c
+
 SRCS_FT_PRINTF = 				$(FT_PRINTF)/converter.c \
 								$(FT_PRINTF)/converter_utils.c \
 								$(FT_PRINTF)/ft_printf.c
@@ -83,7 +89,8 @@ SRCS_FILE =						$(SRCS_CHAR_FUNCTION) \
 								$(SRCS_WRITE_FUNCTION) \
 								$(SRCS_FT_PRINTF) \
 								$(SRCS_GNL_FUNCTION) \
-								$(SRCS_LINKED_LIST_FUNCTION)
+								$(SRCS_LINKED_LIST_FUNCTION) \
+								$(SRCS_VECTOR_FUNCTION)
 OBJECT_FILE = 					$(SRCS_FILE:.c=.o)
 
 CC = cc
@@ -99,6 +106,10 @@ all: $(NAME)
 .c.o:
 	@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
 	@echo "[$(GREEN)OK$(RESET)] $< compiled"
+
+so:
+	$(CC) -fPIC $(CFLAGS) $(SRCS_FILE)
+	gcc -shared -o libft.so $(OBJ)
 
 $(NAME): $(OBJECT_FILE)
 		@echo "$(YELLOW)Creating archive: $(NAME)$(RESET)"

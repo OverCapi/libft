@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ../libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: capi <capi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 18:14:47 by llemmel           #+#    #+#             */
-/*   Updated: 2025/06/28 16:24:45 by capi             ###   ########.fr       */
+/*   Updated: 2025/06/30 13:57:30 by capi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,13 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }	t_list;
+
+typedef struct s_vector
+{
+	void	*data;
+	size_t	len;
+	size_t	max_size;
+}	t_vector;
 
 /* CHAR_FUNCTION */
 extern int		ft_isalnum(int c);
@@ -82,5 +89,11 @@ void			ft_lstdelone(t_list *lst, void (*del)(void *));
 void			ft_lstclear(t_list **lst, void (*del)(void *));
 void			ft_lstiter(t_list *lst, void (*f)(void *));
 t_list			*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+
+/* VECTOR_FUNCTION */
+t_vector		*ft_vector_new(size_t size);
+void			ft_vector_reserve(t_vector *vector, size_t new_size);
+void			ft_vector_free(t_vector *vector);
+void			ft_vector_add(t_vector *vector, void *data, size_t data_size);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: capi <capi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 09:26:50 by llemmel           #+#    #+#             */
-/*   Updated: 2024/11/23 13:39:32 by llemmel          ###   ########.fr       */
+/*   Updated: 2025/06/30 14:04:55 by capi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,6 @@
 # include <unistd.h>
 # include <stdarg.h>
 # include "../libft.h"
-
-// /*	UTILS FUNCTION */
-// size_t	ft_strlen(const char *str);
-// char	*ft_strchr(const char *s, int c);
-// void	ft_putchar_fd(char c, int fd);
-// void	ft_putstr_fd(char *s, int fd);
-// void	ft_putnbr_fd(int n, int fd);
 
 /* CONVERTER UTILS */
 int		get_dec_size(unsigned int nb, int sign);
