@@ -31,6 +31,7 @@ typedef struct s_vector
 	void	*data;
 	size_t	len;
 	size_t	max_size;
+	size_t	data_size;
 }	t_vector;
 
 /* CHAR_FUNCTION */
@@ -91,9 +92,10 @@ void			ft_lstiter(t_list *lst, void (*f)(void *));
 t_list			*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 /* VECTOR_FUNCTION */
-t_vector		*ft_vector_new(size_t size);
+t_vector		*ft_vector_new(size_t size, size_t data_size);
 void			ft_vector_reserve(t_vector *vector, size_t new_size);
 void			ft_vector_free(t_vector *vector);
-void			ft_vector_add(t_vector *vector, void *data, size_t data_size);
+void			ft_vector_add(t_vector *vector, void *data);
+void			ft_vector_rm(t_vector *vector, size_t index);
 
 #endif
