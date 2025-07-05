@@ -97,5 +97,6 @@ void			ft_vector_reserve(t_vector *vector, size_t new_size);
 void			ft_vector_free(t_vector *vector);
 void			ft_vector_add(t_vector *vector, void *data);
 void			ft_vector_rm(t_vector *vector, size_t index);
+void			ft_vector_insert(t_vector *vector, void *data, size_t index);
 
 #endif

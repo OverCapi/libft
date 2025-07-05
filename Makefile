@@ -72,7 +72,8 @@ SRCS_VECTOR_FUNCTION =			$(VECTOR_PATH)/ft_vector_new.c \
 								$(VECTOR_PATH)/ft_vector_reserve.c \
 								$(VECTOR_PATH)/ft_vector_free.c \
 								$(VECTOR_PATH)/ft_vector_add.c \
-								$(VECTOR_PATH)/ft_vector_rm.c
+								$(VECTOR_PATH)/ft_vector_rm.c \
+								$(VECTOR_PATH)/ft_vector_insert.c
 
 SRCS_FT_PRINTF = 				$(FT_PRINTF)/converter.c \
 								$(FT_PRINTF)/converter_utils.c \
