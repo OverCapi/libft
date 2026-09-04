@@ -42,18 +42,14 @@ static int	check_convert(va_list *ptr, char specifier, char **format, size_t *le
 {
 	if (!specifier)
 		return (-1);
-	else if (!ft_strchr("cspdiuxX%", specifier))
-	{
-		ft_putchar_fd('%', 1);
-		ft_putchar_fd(specifier, 1);
+
+	if (!ft_strchr("cspdiuxX%", specifier))
 		*len += 2;
-		(*format)++;
-	}
 	else
-	{
 		*len += ft_converter(ptr, specifier);
-		(*format)++;
-	}
+
+	(*format) += 2;
+
 	return (0);
 }
 
@@ -64,9 +60,11 @@ static int	do_convert(va_list *ptr, char **format, size_t *len, char *pos)
 	write_size = pos - *format;
 	if (write_size && write(1, *format, write_size) == -1)
 		return (-1);
+
+	(*format) += write_size;
+
 	if (check_convert(ptr, pos[1], format, len) != 0)
 		return (-1);
-	(*format) += write_size + 1;
 	return (0);
 }
 
@@ -86,7 +84,7 @@ int	ft_printf(const char *format, ...)
 		pos = ft_strchr(format, '%');
 		if (pos && do_convert(&ptr, (char **)(&format), &len, pos) == -1)
 			return (va_end(ptr), -1);
-		else
+		else if (!pos)
 		{
 			ft_putstr_fd((char *)(format), 1);
 			write_size = ft_strlen(format);
