@@ -107,23 +107,23 @@ all: $(NAME)
 
 .c.o:
 	@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
-	@echo "[$(GREEN)OK$(RESET)] $< compiled"
+	@echo -e "[$(GREEN)OK$(RESET)] $< compiled"
 
 so:
 	$(CC) -fPIC $(CFLAGS) $(SRCS_FILE)
 	gcc -shared -o libft.so $(OBJ)
 
 $(NAME): $(OBJECT_FILE)
-		@echo "$(YELLOW)Creating archive: $(NAME)$(RESET)"
+		@echo -e "$(YELLOW)Creating archive: $(NAME)$(RESET)"
 		@$(AR) $(NAME) $(OBJECT_FILE)
-		@echo "$(GREEN)Archive created: $(NAME)$(RESET)"
+		@echo -e "$(GREEN)Archive created: $(NAME)$(RESET)"
 
 clean:
-	@echo "$(RED)Cleaning object files$(RESET)"
+	@echo -e "$(RED)Cleaning object files$(RESET)"
 	@rm -f $(OBJECT_FILE)
 
 fclean: clean
-	@echo "$(RED)Removing archive $(NAME)$(RESET)"
+	@echo -e "$(RED)Removing archive $(NAME)$(RESET)"
 	@rm -f $(NAME)
 
 re: fclean $(NAME)
