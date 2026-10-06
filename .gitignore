@@ -2,3 +2,6 @@ a.out
 .vscode
 main.c
 *.o
+build/
+*.a
+*.so
