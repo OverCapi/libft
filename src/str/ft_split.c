@@ -6,7 +6,7 @@
 /*   By: capi <capi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 10:21:18 by llemmel           #+#    #+#             */
-/*   Updated: 2026/10/06 22:31:06 by capi             ###   ########.fr       */
+/*   Updated: 2026/10/06 22:39:35 by capi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,6 @@ static size_t	count_words(char const *s, char c)
 	return (count);
 }
 
-static void	*free_split(char **strs, size_t nb_word)
-{
-	while (nb_word > 0)
-		free(strs[--nb_word]);
-	free(strs);
-	return (NULL);
-}
-
 static char	**fill_words(char **strs, char const *s, char c)
 {
 	size_t	word;
@@ -55,7 +47,7 @@ static char	**fill_words(char **strs, char const *s, char c)
 			break ;
 		strs[word] = ft_substr(s, start, i - start);
 		if (!strs[word++])
-			return (free_split(strs, word - 1));
+			return (ft_free_split(strs), NULL);
 	}
 	strs[word] = NULL;
 	return (strs);

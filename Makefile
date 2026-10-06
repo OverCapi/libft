@@ -99,7 +99,9 @@ SRC_STR			= \
 	$(SRC_STR_DIR)/ft_strnstr.c \
 	$(SRC_STR_DIR)/ft_strrchr.c \
 	$(SRC_STR_DIR)/ft_strtrim.c \
-	$(SRC_STR_DIR)/ft_substr.c
+	$(SRC_STR_DIR)/ft_substr.c \
+	$(SRC_STR_DIR)/ft_strcmp.c \
+	$(SRC_STR_DIR)/ft_free_split.c
 
 # ============================================================
 # Sources — Converter
@@ -158,9 +160,11 @@ SRC_VECTOR		= \
 
 SRC_FT_PRINTF_DIR	= $(SRC_DIR)/ft_printf
 SRC_FT_PRINTF		= \
-	$(SRC_FT_PRINTF_DIR)/converter.c \
-	$(SRC_FT_PRINTF_DIR)/converter_utils.c \
-	$(SRC_FT_PRINTF_DIR)/ft_printf.c
+	$(SRC_FT_PRINTF_DIR)/ft_printf.c \
+	$(SRC_FT_PRINTF_DIR)/pf_parse.c \
+	$(SRC_FT_PRINTF_DIR)/pf_convert.c \
+	$(SRC_FT_PRINTF_DIR)/pf_output.c \
+	$(SRC_FT_PRINTF_DIR)/pf_utils.c
 
 # ============================================================
 # Sources — Get next line

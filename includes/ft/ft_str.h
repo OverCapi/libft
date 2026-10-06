@@ -6,7 +6,7 @@
 /*   By: capi <capi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/06 12:00:00 by capi              #+#    #+#             */
-/*   Updated: 2026/10/06 21:57:06 by capi             ###   ########.fr       */
+/*   Updated: 2026/10/06 22:39:35 by capi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,7 @@ char	*ft_strnstr(const char *big, const char *little, size_t len);
 char	*ft_strrchr(const char *s, int c);
 char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
+int		ft_strcmp(const char *s1, const char *s2);
+void	ft_free_split(char **strs);
 
 #endif

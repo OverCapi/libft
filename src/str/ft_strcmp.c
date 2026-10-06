@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: capi <capi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/21 09:26:50 by llemmel           #+#    #+#             */
-/*   Updated: 2026/10/06 22:42:35 by capi             ###   ########.fr       */
+/*   Created: 2026/10/06 22:39:35 by capi              #+#    #+#             */
+/*   Updated: 2026/10/06 22:39:35 by capi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "ft/ft_str.h"
 
-/*
-** Supported conversions : c s p d i u x X %
-** Supported flags       : - 0 # + space, width and .precision
-** Length modifier       : z (size_t / ssize_t) for d i u x X
-*/
-int	ft_printf(const char *format, ...);
-int	ft_dprintf(int fd, const char *format, ...);
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	size_t	i;
 
-#endif
+	i = 0;
+	while (s1[i] && s1[i] == s2[i])
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
