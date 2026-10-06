@@ -20,7 +20,52 @@ CROSS		= \033[9m
 FLASH		= \033[5m
 NEGATIF		= \033[7m
 
-BAR			= "=========="
+# ============================================================
+# Display helpers
+# ============================================================
+
+PRINT		= printf "%b\n"
+
+# $(call HEADER,title) : framed title printed at the start of each step
+BOX_LINE	= ──────────────────────────────────────────
+HEADER		= printf "\n$(BOLD)$(CYAN)╭$(BOX_LINE)╮\n│$(RESET) $(BOLD)%-40s$(RESET) $(BOLD)$(CYAN)│\n╰$(BOX_LINE)╯$(RESET)\n" "$(1)"
+
+# $(call PROGRESS,current,total,file) : redraws the progress display in place.
+# It takes two lines : the bar, and below it the file being compiled.
+# - Each update goes back up one line ("\033[1A") and rewrites both lines.
+#   At the end, the file line is cleared and the cursor stays on it.
+# - A line must never be wider than the terminal, otherwise it wraps and
+#   the cursor no longer goes back to the right place. The width is read
+#   from the terminal itself (/dev/tty), the bar shrinks (down to 10 cells)
+#   and the file name is truncated on narrow terminals.
+# - When the output is not a terminal (pipe, IDE output panel...), lines
+#   cannot be rewritten: only the final, full bar is printed.
+# BAR_FULL / BAR_EMPTY hold BAR_WIDTH characters of 3 bytes each; printf
+# cuts them in bytes (LC_ALL=C) to draw the filled / empty parts.
+BAR_WIDTH	= 30
+BAR_FULL	= ██████████████████████████████
+BAR_EMPTY	= ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+BAR_INFO	= 16
+PROGRESS	= cur=$(1); total=$(2); [ $$cur -gt $$total ] && total=$$cur; \
+	if [ -t 1 ]; then tty=1; else tty=0; fi; \
+	if [ $$tty -eq 1 ] || [ $$cur -eq $$total ]; then \
+	cols=$$({ stty size < /dev/tty; } 2>/dev/null | cut -d " " -f 2); \
+	[ -n "$$cols" ] && [ "$$cols" -gt 0 ] 2>/dev/null || cols=$$(tput cols 2>/dev/null); \
+	[ -n "$$cols" ] || cols=80; \
+	width=$$((cols - 1 - $(BAR_INFO))); \
+	[ $$width -gt $(BAR_WIDTH) ] && width=$(BAR_WIDTH); \
+	[ $$width -lt 10 ] && width=10; \
+	name_max=$$((cols - 5)); [ $$name_max -lt 0 ] && name_max=0; \
+	fill=$$((cur * width / total)); empty=$$((width - fill)); \
+	[ $$tty -eq 1 ] && [ $$cur -gt 1 ] && printf "\033[1A"; \
+	printf "\r\033[K$(GREEN)%s$(DARK_GRAY)%s$(RESET) %3d%% $(DARK_GRAY)[%d/%d]$(RESET)\n" \
+		"$$(LC_ALL=C printf "%.$$((fill * 3))s" "$(BAR_FULL)")" \
+		"$$(LC_ALL=C printf "%.$$((empty * 3))s" "$(BAR_EMPTY)")" \
+		$$((cur * 100 / total)) $$cur $$total; \
+	if [ $$cur -lt $$total ]; then \
+		printf "\033[K$(DARK_GRAY)  ↳ %.$${name_max}s$(RESET)" "$(3)"; \
+	else printf "\033[K"; fi; \
+	fi; true
 
 # ============================================================
 # Project configurations
@@ -32,8 +77,6 @@ SO_NAME	= libft.so
 CC		= cc
 CFLAGS	= -Wall -Werror -Wextra -g3
 AR		= ar -rcs
-
-ECHO	= echo
 
 # ============================================================
 # Directories
@@ -200,52 +243,77 @@ SRC		= \
 	$(SRC_VECTOR) \
 	$(SRC_EXIT)
 
-SRC_OBJ = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC))
+SRC_OBJ = $(call OBJ_OF,$(SRC))
 
 # ============================================================
 # All objects
 # ============================================================
 
 OBJ		= $(SRC_OBJ)
-DEPS	= $(OBJ:.o=.d)
+
+# Objects missing or older than their source, i.e. those make will compile.
+# Evaluated lazily by the first compilation, so the count is right even
+# after the fclean of `make re`.
+OBJ_OF		= $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(1))
+OUTDATED	= $(shell $(foreach src,$(SRC),\
+				{ [ ! -f $(call OBJ_OF,$(src)) ] \
+				|| [ $(src) -nt $(call OBJ_OF,$(src)) ]; } && echo x;))
+TOTAL		=
+COMPILED	=
 
 # ============================================================
 # Rules
 # ============================================================
 
-.PHONY: all so clean fclean re clean_header
+.PHONY: all so clean fclean re
 
 all: $(NAME)
 
 re: fclean all
 
+# ============================================================
+# Step 1 — Compilation
+# ============================================================
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	$(if $(TOTAL),,$(eval TOTAL := $(words $(OUTDATED))))
+	$(eval COMPILED += x)
+	@$(if $(filter 1,$(words $(COMPILED))),$(call HEADER,Compiling $(NAME)),true)
+	@mkdir -p $(dir $@)
+	@$(call PROGRESS,$(words $(COMPILED)),$(TOTAL),$(<:$(SRC_DIR)/%=%))
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ || { printf "\n"; exit 1; }
+
+# ============================================================
+# Step 2 — Archive
+# ============================================================
+
 $(NAME): $(OBJ)
-	@$(ECHO) ""
-	@$(ECHO) "$(BOLD)$(CYAN)$(BAR) $(NAME) creation $(BAR)$(RESET)"
+	@$(call HEADER,Creating $(NAME))
+	@rm -f $(NAME)
 	@$(AR) $(NAME) $(OBJ)
-	@$(ECHO) "$(GREEN)$(NAME) created!$(RESET)"
+	@$(PRINT) "$(GREEN)✔ $(NAME) created$(RESET)"
+
+# ============================================================
+# Step 2 bis — Shared library (make so)
+# ============================================================
 
 so: $(SO_NAME)
 
 $(SO_NAME): $(OBJ)
-	@$(ECHO) ""
-	@$(ECHO) "$(BOLD)$(CYAN)$(BAR) $(SO_NAME) creation $(BAR)$(RESET)"
+	@$(call HEADER,Creating $(SO_NAME))
 	@$(CC) -shared -o $@ $(OBJ)
-	@$(ECHO) "$(GREEN)$(SO_NAME) created!$(RESET)"
+	@$(PRINT) "$(GREEN)✔ $(SO_NAME) created$(RESET)"
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@mkdir -p $(dir $@)
-	@$(ECHO) "$(YELLOW)Compiling $<...$(RESET)"
-	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+# ============================================================
+# Cleaning
+# ============================================================
 
-clean: clean_header
+clean:
+	@$(call HEADER,Cleaning objects)
 	@rm -rf $(BUILD_DIR)
-	@$(ECHO) "$(RED)Object files cleaned $(RESET)"
+	@$(PRINT) "$(RED)✘ $(BUILD_DIR)/ removed$(RESET)"
 
 fclean: clean
+	@$(call HEADER,Cleaning libraries)
 	@rm -f $(NAME) $(SO_NAME)
-	@$(ECHO) "$(RED)$(NAME) and $(SO_NAME) removed $(RESET)"
-
-clean_header:
-	@$(ECHO) ""
-	@$(ECHO) "$(BOLD)$(CYAN)$(BAR) Cleaning $(BAR)$(RESET)"
+	@$(PRINT) "$(RED)✘ $(NAME) and $(SO_NAME) removed$(RESET)"
