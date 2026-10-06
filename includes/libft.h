@@ -6,16 +6,12 @@
 /*   By: capi <capi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 18:14:47 by llemmel           #+#    #+#             */
-/*   Updated: 2026/10/06 22:12:41 by capi             ###   ########.fr       */
+/*   Updated: 2026/10/06 22:47:36 by capi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-
-# include <stdlib.h>
-# include <unistd.h>
-# include <limits.h>
 
 # include "ft/ft_char.h"
 # include "ft/ft_mem.h"
