@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   ft_converter.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: capi <capi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/14 18:15:00 by llemmel           #+#    #+#             */
-/*   Updated: 2026/10/06 22:02:28 by capi             ###   ########.fr       */
+/*   Created: 2026/10/06 12:00:00 by capi              #+#    #+#             */
+/*   Updated: 2026/10/06 21:55:59 by capi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft/ft_char.h"
+#ifndef FT_CONVERTER_H
+# define FT_CONVERTER_H
 
-int	ft_isalnum(int c)
-{
-	return (ft_isalpha(c) || ft_isdigit(c));
-}
+# include <stdlib.h>
+# include <limits.h>
+
+int		ft_atoi_safe(const char *nptr, int *out);
+int		ft_atoi(const char *nptr);
+char	*ft_itoa(int n);
+
+#endif

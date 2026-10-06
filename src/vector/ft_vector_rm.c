@@ -6,21 +6,21 @@
 /*   By: capi <capi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 12:12:05 by capi              #+#    #+#             */
-/*   Updated: 2025/07/05 12:50:23 by capi             ###   ########.fr       */
+/*   Updated: 2026/10/06 22:31:06 by capi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft/ft_vector.h"
+#include "ft/ft_mem.h"
 
 void	ft_vector_rm(t_vector *vector, size_t index)
 {
-	void	*ptr;
-	
-	if (!vector || index * vector->data_size >= vector->len)
+	unsigned char	*pos;
+
+	if (!vector || index >= vector->len)
 		return ;
-	ptr = vector->data + index * vector->data_size;
-	ft_memmove(\
-		ptr, ptr + vector->data_size, \
-		vector->data + (vector->len * vector->data_size) - (ptr + vector->data_size));
-	vector->len -= vector->data_size;
+	pos = (unsigned char *)vector->data + index * vector->elem_size;
+	ft_memmove(pos, pos + vector->elem_size,
+		(vector->len - index - 1) * vector->elem_size);
+	vector->len--;
 }

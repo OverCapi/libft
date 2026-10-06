@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "categories/get_next_line.h"
+#include "get_next_line_internal.h"
 
 static char	*fill_lines(char *line, char *buff)
 {
 	line = ft_strjoin_gnl(line, buff);
 	if (!line)
 		return (NULL);
-	ft_strlcpy_gnl(buff, buff + ft_strlen_gnl(buff, '\n'), BUFFER_SIZE + 1);
+	ft_strlcpy(buff, buff + ft_strlen_gnl(buff, '\n'), BUFFER_SIZE + 1);
 	return (line);
 }
 
@@ -28,9 +28,14 @@ static char	*read_and_join(ssize_t *ro, char *line, char *buffer, int fd)
 		line = fill_lines(line, buffer);
 		if (!line)
 			return (NULL);
-		if (ft_strchr_gnl(line, '\n'))
+		if (ft_strchr(line, '\n'))
 			break ;
 		*ro = read(fd, buffer, BUFFER_SIZE);
+		if (*ro < 0)
+		{
+			buffer[0] = '\0';
+			return (free(line), NULL);
+		}
 		buffer[*ro] = '\0';
 	}
 	return (line);
@@ -53,7 +58,7 @@ char	*get_next_line(int fd)
 		line = fill_lines(line, buffer[fd]);
 		if (!line)
 			return (NULL);
-		if (ft_strchr_gnl(line, '\n'))
+		if (ft_strchr(line, '\n'))
 			return (line);
 	}
 	ro = read(fd, buffer[fd], BUFFER_SIZE);

@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft/ft_exit.h"
+#include "ft/ft_write.h"
 
 // format error : Error\n{error_msg}\n
 void	exit_error(char *error_msg, int exit_status)

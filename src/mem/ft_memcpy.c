@@ -6,26 +6,26 @@
 /*   By: capi <capi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 18:15:34 by llemmel           #+#    #+#             */
-/*   Updated: 2025/06/30 14:04:55 by capi             ###   ########.fr       */
+/*   Updated: 2026/10/06 22:31:06 by capi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft/ft_mem.h"
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	size_t			i;
-	unsigned char	*dest_cpy;
-	unsigned char	*src_cpy;
+	unsigned char		*d;
+	const unsigned char	*s;
+	size_t				i;
 
-	if (dest == NULL && src == NULL)
+	if (!dest && !src)
 		return (NULL);
-	dest_cpy = (unsigned char *)dest;
-	src_cpy = (unsigned char *)src;
+	d = dest;
+	s = src;
 	i = 0;
 	while (i < n)
 	{
-		dest_cpy[i] = src_cpy[i];
+		d[i] = s[i];
 		i++;
 	}
 	return (dest);

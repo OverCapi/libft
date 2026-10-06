@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_converter.h                                     :+:      :+:    :+:   */
+/*   ft_vector_get.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: capi <capi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/10/06 12:00:00 by capi              #+#    #+#             */
-/*   Updated: 2026/10/06 21:55:59 by capi             ###   ########.fr       */
+/*   Created: 2026/10/06 22:31:06 by capi              #+#    #+#             */
+/*   Updated: 2026/10/06 22:31:06 by capi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_CONVERTER_H
-# define FT_CONVERTER_H
+#include "ft/ft_vector.h"
 
-int		ft_atoi_safe(const char *nptr);
-int		ft_atoi(const char *nptr);
-char	*ft_itoa(int n);
-
-#endif
+void	*ft_vector_get(t_vector *vector, size_t index)
+{
+	if (!vector || index >= vector->len)
+		return (NULL);
+	return ((unsigned char *)vector->data + index * vector->elem_size);
+}

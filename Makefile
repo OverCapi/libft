@@ -149,7 +149,8 @@ SRC_VECTOR		= \
 	$(SRC_VECTOR_DIR)/ft_vector_free.c \
 	$(SRC_VECTOR_DIR)/ft_vector_add.c \
 	$(SRC_VECTOR_DIR)/ft_vector_rm.c \
-	$(SRC_VECTOR_DIR)/ft_vector_insert.c
+	$(SRC_VECTOR_DIR)/ft_vector_insert.c \
+	$(SRC_VECTOR_DIR)/ft_vector_get.c
 
 # ============================================================
 # Sources — ft_printf
@@ -171,6 +172,15 @@ SRC_GNL			= \
 	$(SRC_GNL_DIR)/get_next_line_utils.c
 
 # ============================================================
+# Sources — Exit
+# ============================================================
+
+SRC_EXIT_DIR	= $(SRC_DIR)/exit
+SRC_EXIT		= \
+	$(SRC_EXIT_DIR)/exit_error.c \
+	$(SRC_EXIT_DIR)/exit_free.c
+
+# ============================================================
 # Sources — All
 # ============================================================
 
@@ -183,7 +193,8 @@ SRC		= \
 	$(SRC_FT_PRINTF) \
 	$(SRC_GNL) \
 	$(SRC_LINKED_LIST) \
-	$(SRC_VECTOR)
+	$(SRC_VECTOR) \
+	$(SRC_EXIT)
 
 SRC_OBJ = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC))
 

@@ -6,27 +6,25 @@
 /*   By: capi <capi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:25:53 by llemmel           #+#    #+#             */
-/*   Updated: 2025/06/30 14:04:55 by capi             ###   ########.fr       */
+/*   Updated: 2026/10/06 22:31:06 by capi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft/ft_write.h"
 
 void	ft_putnbr_fd(int n, int fd)
 {
+	long	nb;
+
 	if (fd < 0)
 		return ;
-	if (n == -2147483648)
+	nb = n;
+	if (nb < 0)
 	{
-		write(fd, "-2147483648", 11);
-		return ;
+		ft_putchar_fd('-', fd);
+		nb = -nb;
 	}
-	if (n < 0)
-	{
-		write(fd, "-", 1);
-		n = -n;
-	}
-	if (n >= 10)
-		ft_putnbr_fd(n / 10, fd);
-	ft_putchar_fd('0' + n % 10, fd);
+	if (nb >= 10)
+		ft_putnbr_fd(nb / 10, fd);
+	ft_putchar_fd('0' + nb % 10, fd);
 }

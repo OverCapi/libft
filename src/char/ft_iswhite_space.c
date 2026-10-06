@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft/ft_char.h"
 
 int	ft_iswhite_space(int c)
 {

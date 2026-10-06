@@ -6,30 +6,24 @@
 /*   By: capi <capi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 15:57:10 by llemmel           #+#    #+#             */
-/*   Updated: 2025/06/30 14:04:55 by capi             ###   ########.fr       */
+/*   Updated: 2026/10/06 22:31:06 by capi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft/ft_str.h"
 
 char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
+	size_t	little_len;
 	size_t	i;
-	size_t	j;
-	size_t	len_big;
 
-	i = 0;
-	if (little[0] == 0)
+	little_len = ft_strlen(little);
+	if (little_len == 0)
 		return ((char *)big);
-	len_big = 0;
-	if (big)
-		len_big = ft_strlen(big);
-	while (i < len && i <= len_big)
+	i = 0;
+	while (i + little_len <= len && big[i])
 	{
-		j = 0;
-		while (big[i + j] == little[j] && little[j] != '\0' && i + j < len)
-			j++;
-		if (little[j] == '\0')
+		if (ft_strncmp(big + i, little, little_len) == 0)
 			return ((char *)big + i);
 		i++;
 	}

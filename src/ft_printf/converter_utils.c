@@ -6,67 +6,31 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 10:07:42 by llemmel           #+#    #+#             */
-/*   Updated: 2024/11/01 15:14:11 by llemmel          ###   ########.fr       */
+/*   Updated: 2026/10/06 22:31:06 by capi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "categories/ft_printf.h"
+#include "ft_printf_internal.h"
 
-int	get_dec_size(unsigned int nb, int sign)
+int	pf_nbrlen_base(unsigned long nb, unsigned long base_len)
 {
-	int	signed_nb;
-	int	size;
+	int	len;
 
-	size = 0;
-	if (sign == 1)
+	len = 1;
+	while (nb >= base_len)
 	{
-		signed_nb = (int)nb;
-		while (signed_nb != 0)
-		{
-			signed_nb /= 10;
-			size++;
-		}
+		nb /= base_len;
+		len++;
 	}
-	else
-	{
-		while (nb != 0)
-		{
-			nb /= 10;
-			size++;
-		}
-	}
-	return (size);
+	return (len);
 }
 
-void	ft_putunbr(unsigned int nbr)
+void	pf_putnbr_base(unsigned long nb, const char *base)
 {
-	if (nbr >= 10)
-		ft_putunbr(nbr / 10);
-	ft_putchar_fd('0' + nbr % 10, 1);
-}
+	unsigned long	base_len;
 
-int	get_hex_size(size_t nb)
-{
-	int	size;
-
-	size = 0;
-	while (nb > 0)
-	{
-		nb /= 16;
-		size++;
-	}
-	return (size);
-}
-
-void	ft_puthexa(size_t nb, int maj)
-{
-	char	*hex;
-
-	if (maj == 0)
-		hex = "0123456789abcdef";
-	else
-		hex = "0123456789ABCDEF";
-	if (nb >= 16)
-		ft_puthexa(nb / 16, maj);
-	ft_putchar_fd(hex[nb % 16], 1);
+	base_len = ft_strlen(base);
+	if (nb >= base_len)
+		pf_putnbr_base(nb / base_len, base);
+	ft_putchar_fd(base[nb % base_len], 1);
 }

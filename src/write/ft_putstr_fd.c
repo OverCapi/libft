@@ -6,20 +6,16 @@
 /*   By: capi <capi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:18:31 by llemmel           #+#    #+#             */
-/*   Updated: 2025/06/30 14:04:55 by capi             ###   ########.fr       */
+/*   Updated: 2026/10/06 22:31:06 by capi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft/ft_write.h"
+#include "ft/ft_str.h"
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	size_t	len;
-
-	if (fd > 0 && s != NULL)
-	{
-		len = ft_strlen(s);
-		if (write(fd, s, len) == -1)
-			return ;
-	}
+	if (fd < 0 || !s)
+		return ;
+	write(fd, s, ft_strlen(s));
 }

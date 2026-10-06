@@ -6,44 +6,55 @@
 /*   By: capi <capi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 05:52:14 by llemmel           #+#    #+#             */
-/*   Updated: 2025/06/30 14:04:55 by capi             ###   ########.fr       */
+/*   Updated: 2026/10/06 22:31:06 by capi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft/ft_converter.h"
+#include "ft/ft_char.h"
 
-static int	check_overflow(long int nb, int sign)
+static int	parse_sign(const char *nptr, int *i)
 {
-	if (sign == 1 && nb > INT_MAX)
-		return (0);
-	else if (sign == -1 && (nb < INT_MIN || nb >= INT_MAX))
-		return (0);
-	return (1);
+	int	sign;
+
+	sign = 1;
+	while (ft_iswhite_space(nptr[*i]))
+		(*i)++;
+	if (nptr[*i] == '-' || nptr[*i] == '+')
+	{
+		if (nptr[*i] == '-')
+			sign = -1;
+		(*i)++;
+	}
+	return (sign);
 }
 
-int	ft_atoi_safe(const char *nptr)
+/*
+** Convert nptr to an int stored in *out.
+** Return 1 on success, 0 if nptr is not a whole valid int
+** (no digit, trailing characters or overflow).
+*/
+int	ft_atoi_safe(const char *nptr, int *out)
 {
-	int		nb;
+	long	nb;
 	int		sign;
 	int		i;
 
-	i = 0;
+	if (!nptr || !out)
+		return (0);
 	nb = 0;
-	sign = 1;
-	while (ft_iswhite_space(nptr[i]) == 1 && nptr[i] != '\0')
-		i++;
-	if (nptr[i] == '-' || nptr[i] == '+')
+	i = 0;
+	sign = parse_sign(nptr, &i);
+	if (!ft_isdigit(nptr[i]))
+		return (0);
+	while (ft_isdigit(nptr[i]))
 	{
-		if (nptr[i] == '-')
-			sign = -1;
-		i++;
-	}
-	while (ft_isdigit(nptr[i]) == 1)
-	{
-		if (!check_overflow((long int)nb * 10 + nptr[i] - '0', sign))
+		nb = nb * 10 + (nptr[i++] - '0');
+		if (nb * sign > INT_MAX || nb * sign < INT_MIN)
 			return (0);
-		nb = nb * 10 + nptr[i] - '0';
-		i++;
 	}
-	return (nb * sign);
+	if (nptr[i] != '\0')
+		return (0);
+	*out = (int)(nb * sign);
+	return (1);
 }

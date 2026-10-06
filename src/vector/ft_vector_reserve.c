@@ -6,25 +6,29 @@
 /*   By: capi <capi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 13:39:23 by capi              #+#    #+#             */
-/*   Updated: 2025/06/30 14:04:55 by capi             ###   ########.fr       */
+/*   Updated: 2026/10/06 22:31:06 by capi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft/ft_vector.h"
+#include "ft/ft_mem.h"
 
-void	ft_vector_reserve(t_vector *vector, size_t new_size)
+int	ft_vector_reserve(t_vector *vector, size_t new_capacity)
 {
-	void	*old_data;
+	void	*new_data;
 
 	if (!vector)
-		return ;
-	old_data = vector->data;
-	vector->data = malloc(new_size);
-	if (!vector->data)
-	{
-		vector->data = old_data;
-		return ;
-	}
-	ft_memcpy(vector->data, old_data, vector->max_size);
-	vector->max_size = new_size;
+		return (0);
+	if (new_capacity <= vector->capacity)
+		return (1);
+	if (new_capacity > (size_t)-1 / vector->elem_size)
+		return (0);
+	new_data = malloc(new_capacity * vector->elem_size);
+	if (!new_data)
+		return (0);
+	ft_memcpy(new_data, vector->data, vector->len * vector->elem_size);
+	free(vector->data);
+	vector->data = new_data;
+	vector->capacity = new_capacity;
+	return (1);
 }

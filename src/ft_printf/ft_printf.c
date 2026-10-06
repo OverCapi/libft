@@ -6,92 +6,67 @@
 /*   By: capi <capi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 09:23:40 by llemmel           #+#    #+#             */
-/*   Updated: 2025/06/29 16:24:36 by capi             ###   ########.fr       */
+/*   Updated: 2026/10/06 22:31:06 by capi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "categories/ft_printf.h"
+#include "ft_printf_internal.h"
 
-static size_t	ft_converter(va_list *ptr, char specifier)
+static int	convert(va_list *ap, char spec)
+{
+	if (spec == 'c')
+		return (char_converter((unsigned char)va_arg(*ap, int)));
+	if (spec == 's')
+		return (str_converter(va_arg(*ap, char *)));
+	if (spec == 'p')
+		return (ptr_converter((size_t)va_arg(*ap, void *)));
+	if (spec == 'd' || spec == 'i')
+		return (dec_converter(va_arg(*ap, int)));
+	if (spec == 'u')
+		return (dec_converter(va_arg(*ap, unsigned int)));
+	if (spec == 'x' || spec == 'X')
+		return (hex_converter(va_arg(*ap, unsigned int), spec == 'X'));
+	if (spec == '%')
+		return (char_converter('%'));
+	char_converter('%');
+	return (1 + char_converter(spec));
+}
+
+static size_t	print_text(const char *str)
 {
 	size_t	len;
 
 	len = 0;
-	if (specifier == 'c')
-		return (char_converter((unsigned char)va_arg(*ptr, int)));
-	else if (specifier == 's')
-		return (str_converter(va_arg(*ptr, char *)));
-	else if (specifier == 'p')
-		return (ptr_converter((size_t)va_arg(*ptr, void *)));
-	else if (specifier == 'd' || specifier == 'i')
-		return (dec_converter(va_arg(*ptr, int), 1));
-	else if (specifier == 'u')
-		return (dec_converter(va_arg(*ptr, unsigned int), 0));
-	else if (specifier == 'x')
-		return (hex_converter(va_arg(*ptr, unsigned int), 0));
-	else if (specifier == 'X')
-		return (hex_converter(va_arg(*ptr, unsigned int), 1));
-	else if (specifier == '%')
-		return (char_converter('%'));
-	else
-		return (-1);
+	while (str[len] && str[len] != '%')
+		len++;
+	write(1, str, len);
 	return (len);
-}
-
-static int	check_convert(va_list *ptr, char specifier, char **format, size_t *len)
-{
-	if (!specifier)
-		return (-1);
-
-	if (!ft_strchr("cspdiuxX%", specifier))
-		*len += 2;
-	else
-		*len += ft_converter(ptr, specifier);
-
-	(*format) += 2;
-
-	return (0);
-}
-
-static int	do_convert(va_list *ptr, char **format, size_t *len, char *pos)
-{
-	size_t	write_size;
-
-	write_size = pos - *format;
-	if (write_size && write(1, *format, write_size) == -1)
-		return (-1);
-
-	(*format) += write_size;
-
-	if (check_convert(ptr, pos[1], format, len) != 0)
-		return (-1);
-	return (0);
 }
 
 int	ft_printf(const char *format, ...)
 {
+	va_list	ap;
 	size_t	len;
-	size_t	write_size;
-	char	*pos;
-	va_list	ptr;
+	size_t	text_len;
 
 	if (!format)
 		return (-1);
-	va_start(ptr, format);
+	va_start(ap, format);
 	len = 0;
 	while (*format)
 	{
-		pos = ft_strchr(format, '%');
-		if (pos && do_convert(&ptr, (char **)(&format), &len, pos) == -1)
-			return (va_end(ptr), -1);
-		else if (!pos)
+		if (*format == '%')
 		{
-			ft_putstr_fd((char *)(format), 1);
-			write_size = ft_strlen(format);
-			format += write_size;
-			len += write_size;
+			if (!format[1])
+				return (va_end(ap), -1);
+			len += convert(&ap, format[1]);
+			format += 2;
+			continue ;
 		}
+		text_len = print_text(format);
+		len += text_len;
+		format += text_len;
 	}
-	va_end(ptr);
+	va_end(ap);
 	return (len);
 }

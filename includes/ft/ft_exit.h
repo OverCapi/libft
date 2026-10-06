@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   ft_exit.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: capi <capi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/14 18:15:00 by llemmel           #+#    #+#             */
-/*   Updated: 2026/10/06 22:02:28 by capi             ###   ########.fr       */
+/*   Created: 2026/10/06 22:16:58 by capi              #+#    #+#             */
+/*   Updated: 2026/10/06 22:16:58 by capi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft/ft_char.h"
+#ifndef FT_EXIT_H
+# define FT_EXIT_H
 
-int	ft_isalnum(int c)
-{
-	return (ft_isalpha(c) || ft_isdigit(c));
-}
+# include <stdlib.h>
+
+void	exit_error(char *error_msg, int exit_status);
+void	exit_free(char *error_msg, void *ptr, int exit_status);
+
+#endif

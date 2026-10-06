@@ -6,23 +6,18 @@
 /*   By: capi <capi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:14:26 by llemmel           #+#    #+#             */
-/*   Updated: 2025/06/30 14:04:55 by capi             ###   ########.fr       */
+/*   Updated: 2026/10/06 22:31:06 by capi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft/ft_linked_list.h"
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	t_list	*lstlast;
-
-	if (!lst && !new)
+	if (!lst || !new)
 		return ;
-	if (!(*lst))
+	if (!*lst)
 		*lst = new;
 	else
-	{
-		lstlast = ft_lstlast(*lst);
-		lstlast->next = new;
-	}
+		ft_lstlast(*lst)->next = new;
 }
